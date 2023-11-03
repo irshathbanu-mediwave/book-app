@@ -20,3 +20,4 @@ export const deletebybook = ({ id }) => {
   return deletebook;
 };
 export const getAllBook = () => books;
+export const findBookById = (id) => books.find(b => b.id == id)

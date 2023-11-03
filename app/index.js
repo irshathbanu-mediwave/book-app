@@ -7,7 +7,13 @@ app.use(cors());
 app.use(morgan("tiny"));
 app.use(express.json());
 
-import { getbybook, updatedbybook, deletebybook, getAllBook } from "./db.js";
+import {
+  getbybook,
+  updatedbybook,
+  deletebybook,
+  getAllBook,
+  findBookById,
+} from "./db.js";
 app.get("/book", (req, res) => {
   res.json(getAllBook);
 });
@@ -62,7 +68,13 @@ app.put("/book/:id", (req, res, next) => {
       message: "Failed to update movie with id " + req.params.id,
     });
   }
-
+  app.get("/book/:id", (req, res, next) => {
+    const book = findBookById(req.params.id);
+    if (!book) {
+      return next({ code: 404, message: "Book not found for id" });
+    }
+    res.json(book);
+  });
   return res.json(m);
 });
 app.use((req, res, next) => {
