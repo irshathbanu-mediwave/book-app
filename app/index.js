@@ -1,8 +1,12 @@
 import express from "express";
 import morgan from "morgan";
+import cors from "cors";
+
 const app = express();
-app.use(morgan("tiny"));
 app.use(cors());
+app.use(morgan("tiny"));
+app.use(express.json());
+
 import { getbybook, updatedbybook, deletebybook, getAllBook } from "./db.js";
 app.get("/book", (req, res) => {
   res.json(getAllBook);
